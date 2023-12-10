@@ -1,7 +1,11 @@
+<div class="filter-and-button-container">
 <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
 </mat-form-field>
+
+<button mat-raised-button color="primary" class="center-button" (click)="criarAluno()">Novo Aluno</button>
+</div>
 
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
@@ -23,12 +27,12 @@
 
         <ng-container matColumnDef="nascimento">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Nascimento </th>
-            <td mat-cell *matCellDef="let row"> {{row.nascimento}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.nascimento | date:'dd/MM/yyyy'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="data_hora_cadastro">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Data cadastro </th>
-            <td mat-cell *matCellDef="let row"> {{row.data_hora_cadastro}} </td>
+            <td mat-cell *matCellDef="let row"> {{row.data_hora_cadastro | date:'dd/MM/yyyy HH:mm'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
@@ -37,8 +41,8 @@
                 <button mat-icon-button color="primary" *ngIf="!row.editing" (click)="editarAluno(row)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="warn" (click)="removerAluno(row)">
-                    <mat-icon>delete</mat-icon>
+                <button mat-icon-button color="warn" (click)="RemoverAluno(row)">
+                    <mat-icon>Deletar</mat-icon>
                 </button>
                 <button mat-icon-button color="primary" *ngIf="row.editing" (click)="salvarEdicao()">
                     <mat-icon>done</mat-icon>

@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AlunoService } from '../aluno.service';
+import { Router } from '@angular/router';
+import { Aluno, AlunoService } from '../aluno.service';
 
 
 export interface listaAlunos {
   id: number;
   nome: string;
   matricula: string;
-  data_hora_cadastro: string;
-  nascimento: string;
+  data_hora_cadastro: Date | string;
+  nascimento: Date | string;
 }
 
 
@@ -21,7 +21,7 @@ export interface listaAlunos {
   styleUrls: ['./listar.component.css'],
 })
 
-export class ListarComponent implements OnInit {
+export class ListarComponent implements AfterViewInit {
   displayedColumns: string[] = ['id', 'nome', 'data_hora_cadastro', 'matricula', 'nascimento', 'actions'];
   dataSource: MatTableDataSource<listaAlunos> = new MatTableDataSource<listaAlunos>();
 
@@ -31,11 +31,11 @@ export class ListarComponent implements OnInit {
 
   constructor(
     private alunoService: AlunoService,
-    public dialog: MatDialog) { }
+    private router: Router) { }
 
-  ngOnInit() {
-    this.ListarAlunos();
-  }
+    ngAfterViewInit() {
+      this.ListarAlunos();
+    }
 
   ListarAlunos(): void {
     this.alunoService.listarAlunos().subscribe((alunos: listaAlunos[]) => {
@@ -79,14 +79,20 @@ export class ListarComponent implements OnInit {
     this.alunoEditando = null;
   }
 
-  removerAluno(aluno: listaAlunos): void {
+  criarAluno(): void {
+    this.router.navigate(['criaraluno']);
+  }
+
+  RemoverAluno(aluno: Aluno): void {
     const alunoId = aluno.id as number;
     this.alunoService.removerAluno(alunoId).subscribe(() => {
       this.dataSource.data = this.dataSource.data.filter((a) => a.id !== alunoId);
   
       this.ListarAlunos();
     });
-  };
+
+    
+  }
   }
 
 

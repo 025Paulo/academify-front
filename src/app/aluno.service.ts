@@ -21,11 +21,7 @@ export class AlunoService {
     return this.http.get<Aluno[]>(`${this.apiUrl}/listar`);
   }
 
-  getAluno(id: number): Observable<Aluno> {
-    return this.http.get<Aluno>(`${this.apiUrl}/get/${id}`);
-  }
-
-  incluirAluno(aluno: Aluno): Observable<Aluno> {
+  criarAluno(aluno: Aluno): Observable<Aluno> {
     return this.http.post<Aluno>(`${this.apiUrl}/incluir`, aluno, this.getHttpOptions());
   }
 
@@ -38,8 +34,18 @@ export class AlunoService {
     return this.http.put(url, aluno);
   }
 
-  removerAluno(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/remover/${id}`, this.httpOptions);
+  atualizarAluno(alunoId: number, aluno: Aluno): Observable<Aluno> {
+    return this.http.put<Aluno>(`${this.apiUrl}/editar/${alunoId}`, aluno);
+  }
+
+  removerAluno(id: number): Observable<void> {
+    const url = `${this.apiUrl}/remover`;
+
+    return this.http.post<void>(url, { id });
+  }
+
+  obterAlunoPorId(id: number): Observable<Aluno> {
+    return this.http.get<Aluno>(`${this.apiUrl}/get/${id}`);
   }
 
   private getHttpOptions() {
