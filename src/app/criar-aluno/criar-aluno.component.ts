@@ -10,6 +10,7 @@ import { AlunoService } from '../aluno.service';
   styleUrls: ['./criar-aluno.component.css']
 })
 export class CriarAlunoComponent {
+[x: string]: any;
     FormAluno!: FormGroup;
     cadastroSucesso = false;
   
@@ -63,7 +64,7 @@ export class CriarAlunoComponent {
     exibirDialogo(): void {
       const mensagem = 'Aluno cadastrado com sucesso!';
       this.snackBar.open(mensagem, 'OK', {
-        duration: 2000, // Tempo de exibição em milissegundos (opcional)
+        duration: 2000,
       });
   
       this.snackBar._openedSnackBarRef?.onAction().subscribe(() => {

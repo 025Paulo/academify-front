@@ -8,8 +8,6 @@ const routes: Routes = [
   { path: 'listar', component: ListarComponent },
   { path: 'principal', component: PrincipalComponent },
   {path: 'criaraluno', component: CriarAlunoComponent},
-
-
 ];
 
 @NgModule({

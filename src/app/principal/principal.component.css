@@ -1,0 +1,11 @@
+.class {
+    width: 10px;
+    height: 10px;
+}
+
+.btn {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 200px;
+}
