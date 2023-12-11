@@ -19,6 +19,7 @@ import { CriarAlunoComponent } from './criar-aluno/criar-aluno.component';
 import { ListarComponent } from './listar/listar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { EditarAlunoComponent } from './editar-aluno/editar-aluno.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { PrincipalComponent } from './principal/principal.component';
     PrincipalComponent,
     ListarComponent,
     CriarAlunoComponent,
+    EditarAlunoComponent,
   ],
   imports: [
     BrowserModule,

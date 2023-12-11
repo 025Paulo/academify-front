@@ -38,7 +38,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Editar/Apagar </th>
             <td mat-cell *matCellDef="let row">
-                <button mat-icon-button color="primary" *ngIf="!row.editing">
+                <button mat-icon-button color="primary" *ngIf="!row.editing" (click)="editarAluno(row)">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-icon-button color="warn" (click)="RemoverAluno(row)">

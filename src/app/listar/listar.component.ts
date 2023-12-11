@@ -12,6 +12,7 @@ export interface listaAlunos {
   matricula: string;
   data_hora_cadastro: Date | string;
   nascimento: Date | string;
+  editing?: boolean;
 }
 
 
@@ -33,9 +34,9 @@ export class ListarComponent implements AfterViewInit {
     private alunoService: AlunoService,
     private router: Router) { }
 
-    ngAfterViewInit() {
-      this.ListarAlunos();
-    }
+  ngAfterViewInit() {
+    this.ListarAlunos();
+  }
 
   ListarAlunos(): void {
     this.alunoService.listarAlunos().subscribe((alunos: listaAlunos[]) => {
@@ -58,25 +59,15 @@ export class ListarComponent implements AfterViewInit {
   alunoEditando: listaAlunos | null = null;
 
   editarAluno(aluno: listaAlunos): void {
-    const alunoId = aluno.id as number;
-    this.alunoService.editarAluno(alunoId).subscribe(() => {
-      this.dataSource.data = this.dataSource.data.filter((a) => a.id !== alunoId);
-
-      this.ListarAlunos();
-    });
+    aluno.editing = true; // Ativar modo de edição
+    this.alunoEditando = aluno;
   }
 
-  salvarEdicao(): void {
-    if (this.alunoEditando) {
-      this.alunoService.salvarEdicao(this.alunoEditando).subscribe(() => {
-        this.alunoEditando = null;
-        this.ListarAlunos();
-      });
-    }
-  }
-  
-  cancelarEdicao(): void {
+  salvarEdicao(aluno: listaAlunos): void {
+    aluno.editing = false; // Desativar modo de edição
     this.alunoEditando = null;
+    // Adicione lógica para salvar as alterações no backend, se necessário
+    this.ListarAlunos();
   }
 
   criarAluno(): void {
@@ -87,13 +78,13 @@ export class ListarComponent implements AfterViewInit {
     const alunoId = aluno.id as number;
     this.alunoService.removerAluno(alunoId).subscribe(() => {
       this.dataSource.data = this.dataSource.data.filter((a) => a.id !== alunoId);
-  
+
       this.ListarAlunos();
     });
 
-    
+
   }
-  }
+}
 
 
 
